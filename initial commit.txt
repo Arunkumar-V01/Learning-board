@@ -1,0 +1,118 @@
+
+
+// defines pins numbers
+const int trigPin = 9;
+const int echoPin = 8;
+const int led =2;
+// defines variables
+long duration;
+int distance;
+
+int IRSensor = A1
+; // connect ir sensor to arduino pin 2
+int LED = A5;
+// conect Led to arduino pin
+
+
+int val;
+int tempPin =A2;
+int LED1=5;
+
+
+int sensorPin = A0; 
+int sensorValue;  
+int limit = 100; 
+
+void setup()
+{
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the ec
+  
+ // echoPin as an Input
+  pinMode(led,OUTPUT);
+  Serial.begin(9600); // Starts the serial communication
+
+  
+  
+  pinMode (IRSensor, INPUT); // sensor pin INPUT
+  pinMode (LED, OUTPUT); 
+ 
+  Serial.begin(9600);
+
+  Serial.begin(9600);
+ pinMode(4, OUTPUT);
+
+}
+void loop()
+{
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  // Calculating the distance
+  distance = duration * 0.034 / 2;
+  // Prints the distance on the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.println(distance);
+  if(distance>50)
+  {
+    digitalWrite(2,LOW);
+  }
+  else
+  {
+     digitalWrite(2,HIGH);
+  }
+int statusSensor = digitalRead (IRSensor);
+  
+  if (statusSensor == 1)
+  {
+  
+    digitalWrite(LED, LOW);
+    
+    // LED LOW
+  }
+  
+  else
+  {
+    digitalWrite(LED, HIGH); 
+    
+  }
+   val = analogRead(tempPin);
+  float mv = ( val/1024.0)*5000;
+  float cel = mv/10;
+  float farh = (cel*9)/5 + 32;
+  Serial.print("TEMPRATURE = ");
+  Serial.print(cel);
+  Serial.print("*C");
+  Serial.println();
+  delay(1000);
+  if(cel>10)
+  {
+    digitalWrite(5,HIGH); 
+  }
+  else
+  {
+     digitalWrite(5,LOW);
+  }
+   sensorValue = analogRead(sensorPin); 
+ Serial.println("Analog Value : ");
+ Serial.println(sensorValue);
+ 
+ if (sensorValue>limit) {
+ digitalWrite(4, HIGH); 
+ }
+ else {
+ digitalWrite(4, LOW); 
+ }
+ 
+ delay(1000); 
+}
+ 
